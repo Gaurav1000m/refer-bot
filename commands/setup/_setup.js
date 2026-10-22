@@ -168,5 +168,17 @@ AdminPanel.setPanel({
 });
 
 Libs.MembershipChecker.setup();
-Bot.sendMessage("Bot settings have been successfully configured!");
-Bot.sendMessage("Bot commands have been successfully set!");
+
+// Automatically configure channels and callback commands
+AdminPanel.setPanelValues("MembershipChecker", {
+  chats: "@studywithgaurav0, @viraldealsalert",
+  onNeedJoining: "/needJoinAll",
+  onJoining: "/justJoinedOne",
+  onAllJoining: "/joinedAll",
+  onError: "/mclibError",
+  checkTime: 20,
+});
+
+Bot.sendMessage("✅ Bot settings configured!");
+Bot.sendMessage("✅ MembershipChecker configured with channels: @studywithgaurav0, @viraldealsalert");
+Bot.sendMessage("✅ Bot commands have been successfully set!");

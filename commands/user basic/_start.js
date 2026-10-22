@@ -128,12 +128,17 @@ To continue using this bot, please join all the required channels below:
 
 // Function to generate join buttons
 function generateJoinButtons(chats) {
-  const chatArray = chats.split(",").map((chat) => chat.trim());
+  if (!chats) return [[{ text: "✅ Joined", callback_data: "/start" }]];
+  const chatArray = chats.split(",").map((chat) => chat.trim()).filter(Boolean);
   const inlineKeyboard = chatArray.reduce((rows, chat, index) => {
     if (index % 2 === 0) rows.push([]);
+    const cleanChat = chat.replace("@", "");
+    const url = cleanChat.startsWith("-100")
+      ? `https://t.me/c/${cleanChat.replace("-100", "")}`
+      : `https://t.me/${cleanChat}`;
     rows[rows.length - 1].push({
       text: chat,
-      url: `https://t.me/${chat.replace("@", "")}`,
+      url: url,
     });
     return rows;
   }, []);
